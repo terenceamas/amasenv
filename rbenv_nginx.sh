@@ -141,6 +141,16 @@ echo "rbenv global \$VER5" >> ~/rbenv.sh
 echo "rbenv rehash" >> ~/rbenv.sh
 echo "rails -v" >> ~/rbenv.sh
 
+echo "#!/bin/bash" >> ~/rbenv7.sh
+echo "VER7=3.1.4" >> ~/rbenv7.sh
+echo "rbenv install \$VER7" >> ~/rbenv7.sh
+echo "rbenv local \$VER7" >> ~/rbenv7.sh
+echo "gem install bundler" >> ~/rbenv7.sh
+echo "gem install rails -v 7.1.2" >> ~/rbenv7.sh
+echo "rbenv rehash" >> ~/rbenv7.sh
+echo "ruby -v" >> ~/rbenv7.sh
+echo "rails -v" >> ~/rbenv7.sh
+
 echo "NOTICE: after RoR is ready, modify ror and systemctl reload nginx "
 echo "NOTICE: remember to use command \"sudo mysql_secure_installation\" to setup mysql database"
 
