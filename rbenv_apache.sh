@@ -62,7 +62,9 @@ echo "updating apt source list..."
 sudo $aptexe update
 
 echo "installing apache2..."
-sudo $aptexe install -y apache2 mysql-server php php-mysql php-mcrypt libapache2-mod-php apache2-dev libmysqlclient-dev
+sudo $aptexe install -y apache2 libapache2-mod-php apache2-dev 
+sudo $aptexe install -y mysql-server libmysqlclient-dev
+sudo $aptexe install -y php php-mysql php-mbstring
 
 echo "installing some tools..."
 #sudo $aptexe install -y git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev 
