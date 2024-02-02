@@ -52,7 +52,7 @@ sudo $aptexe update
 
 echo "install nginx, mysql, php"
 sudo $aptexe install -y nginx-extras mysql-server mysql-client libmysqlclient-dev
-sudo $aptexe install -y php-fpm php-mysql
+sudo $aptexe install -y php-fpm php-mysqli php-mbstring
 
 echo "installing some tools..."
 #sudo $aptexe install -y git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev 
