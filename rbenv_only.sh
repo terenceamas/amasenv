@@ -48,8 +48,9 @@ echo "#!/bin/bash" >> ~/rbenv5.sh
 echo "VER7=2.7.8" >> ~/rbenv5.sh
 echo "rbenv install \$VER7" >> ~/rbenv5.sh
 echo "rbenv local \$VER7" >> ~/rbenv5.sh
-echo "gem install bundler" >> ~/rbenv5.sh
-echo "gem install rails -v 5.1.7" >> ~/rbenv5.sh
+echo "gem install bundler -v 2.3.25" >> ~/rbenv5.sh
+echo "gem install nokogiri -v 1.15.6" >> ~/rbenv5.sh
+echo "gem install rails -v 5.2.8" >> ~/rbenv5.sh
 echo "rbenv rehash" >> ~/rbenv5.sh
 echo "ruby -v" >> ~/rbenv5.sh
 echo "rails -v" >> ~/rbenv5.sh
