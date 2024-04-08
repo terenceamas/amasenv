@@ -104,7 +104,11 @@ sudo $aptexe install -y apache2 mysql-server php php-mysql php-mbstring libapach
 
 echo "installing coding prerequisite..."
 sudo $aptexe install -y make gcc g++
-sudo $aptexe install -y libmysqlclient-dev libcrypto++-dev libssl-dev libudev-dev libsqlite3-dev libmodbus-dev libcurl4-gnutls-dev libhpdf-dev zlibc 
+if [ "$ver" == "18" ]; then
+	sudo $aptexe install -y libmysqlclient-dev libcrypto++-dev libssl-dev libudev-dev libsqlite3-dev libmodbus-dev libcurl4-gnutls-dev libhpdf-dev zlibc 
+else
+	sudo $aptexe install -y libmysqlclient-dev libcrypto++-dev libssl-dev libudev-dev libsqlite3-dev libmodbus-dev libcurl4-gnutls-dev libhpdf-dev libmysql++-dev libjwt-dev
+fi
 
 if [ "$bit" == "64" ]; then
 	sudo $aptexe install -y gcc-multilib g++-multilib lib32z1-dev
