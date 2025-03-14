@@ -29,9 +29,10 @@ if [ ${ver:0:2} == "18" ]; then
 	echo "You are using Ubuntu 18.04 LTS "$aptcode
 	ver=18
 else
-  ver=${ver:0:2}
-	echo "Your Linux Release may not be well tested for AMASCORE... "$ver
-	exit 0
+	ver=${ver:0:2}
+	echo "You are using Ubuntu ${ver}.04 LTS " $aptcode
+#	echo "Your Linux Release may not be well tested for AMASCORE... "$ver
+#	exit 0
 fi
 
 read -p "did you add the user '"$exe_user"'? (y or n) " yn
@@ -98,12 +99,13 @@ cd ~
 echo "installing common utility..."
 sudo $aptexe update
 sudo $aptexe install -y git vim screen sqlite3 openssh-server
+sudo $aptexe install -y lrzsz curl wget jq 
 
 echo "installing service prerequisite... (A M P)"
 sudo $aptexe install -y apache2 mysql-server php php-mysql php-mbstring libapache2-mod-php
 
 echo "installing coding prerequisite..."
-sudo $aptexe install -y make gcc g++
+sudo $aptexe install -y make gcc g++ gdb
 if [ "$ver" == "18" ]; then
 	sudo $aptexe install -y libmysqlclient-dev libcrypto++-dev libssl-dev libudev-dev libsqlite3-dev libmodbus-dev libcurl4-gnutls-dev libhpdf-dev zlibc 
 else
