@@ -110,6 +110,7 @@ fi
 echo "installing common utility..."
 sudo $aptexe update
 sudo $aptexe install -y git vim screen sqlite3 openssh-server
+sudo $aptexe install -y lrzsz gdb htop jq
 
 echo "installing service prerequisite... (A M P)"
 if [ "$ver" == "16" ]; then
