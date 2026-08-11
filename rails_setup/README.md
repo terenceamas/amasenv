@@ -1,6 +1,6 @@
 # Rails Server Setup
 
-AMASPMS Ubuntu 新機安裝流程，使用 nginx.org Nginx、Puma、rbenv、Node.js/Yarn，以及選配的 MySQL/PHP。此流程不使用 Passenger 或 `nginx-extras`。
+AMASPMS Ubuntu 新機安裝流程，使用 nginx.org Nginx、Puma、rbenv、nvm、Node.js/Yarn，以及選配的 MySQL/PHP。此流程不使用 Passenger 或 `nginx-extras`。
 
 ## 架構
 
@@ -53,6 +53,7 @@ SSL_CERTIFICATE_KEY="/etc/nginx/ssl/myapp.key"
 
 RUBY_VERSION="3.3.6"
 RAILS_VERSION="7.2.2"
+NVM_VERSION="v0.40.4"
 
 INSTALL_MYSQL="yes"
 INSTALL_PHP="yes"
@@ -80,7 +81,7 @@ chmod +x install.sh configure_nginx.sh install_puma_service.sh
 1. Ubuntu dependencies。
 2. nginx.org repository 與 Nginx。
 3. 選配 MySQL、PHP-FPM。
-4. Node.js LTS 與 Yarn。
+4. application user 的 nvm、Node.js LTS 與 Yarn。
 5. rbenv、ruby-build、Ruby、Bundler 與 Rails。
 6. `/etc/nginx/conf.d/<APP_NAME>.conf`。
 7. `~/server-setup` 後續維護檔案。

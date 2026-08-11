@@ -9,11 +9,21 @@ STAGING_DIR="${HOME}/server-setup"
 log() { printf '\n==> %s\n' "$*"; }
 die() { printf '\nERROR: %s\n' "$*" >&2; exit 1; }
 
+append_bashrc_once() {
+    local line="$1"
+    grep -Fqx "${line}" "${HOME}/.bashrc" \
+        || printf '%s\n' "${line}" >> "${HOME}/.bashrc"
+}
+
 [[ "${EUID}" -ne 0 ]] || die "Run this script as the application user, not root."
 [[ -f "${CONFIG_FILE}" ]] || die "Missing ${CONFIG_FILE}"
 
 # shellcheck source=/dev/null
 source "${CONFIG_FILE}"
+
+touch "${HOME}/.bashrc"
+[[ "${NVM_VERSION}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] \
+    || die "NVM_VERSION must look like v0.40.4."
 
 # Expand variables such as ${HOME}/${APP_NAME} after loading setup.conf.
 APP_USER="$(eval "echo ${APP_USER}")"
@@ -142,6 +152,28 @@ if [[ "${INSTALL_PHP}" == "yes" ]]; then
     fi
 fi
 
+log "Installing/updating nvm ${NVM_VERSION}"
+NVM_INSTALLER="$(mktemp)"
+trap 'rm -f "${NVM_INSTALLER}"' EXIT
+curl -fsSL \
+    "https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh" \
+    -o "${NVM_INSTALLER}"
+
+# Keep shell configuration idempotent and managed by this installer.
+PROFILE=/dev/null bash "${NVM_INSTALLER}"
+rm -f "${NVM_INSTALLER}"
+trap - EXIT
+
+append_bashrc_once 'export NVM_DIR="$HOME/.nvm"'
+append_bashrc_once '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+append_bashrc_once '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
+
+export NVM_DIR="${HOME}/.nvm"
+# shellcheck source=/dev/null
+[[ -s "${NVM_DIR}/nvm.sh" ]] || die "nvm installation verification failed."
+. "${NVM_DIR}/nvm.sh"
+command -v nvm >/dev/null 2>&1 || die "nvm installation verification failed."
+
 log "Installing Node.js LTS"
 NODE_SETUP="/tmp/nodesource_setup.sh"
 curl -fsSL https://deb.nodesource.com/setup_lts.x -o "${NODE_SETUP}"
@@ -160,11 +192,8 @@ else
     git -C "${HOME}/.rbenv" pull --ff-only
 fi
 
-grep -Fq 'export PATH="$HOME/.rbenv/bin:$PATH"' "${HOME}/.bashrc" \
-    || echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> "${HOME}/.bashrc"
-
-grep -Fq 'eval "$(rbenv init - bash)"' "${HOME}/.bashrc" \
-    || echo 'eval "$(rbenv init - bash)"' >> "${HOME}/.bashrc"
+append_bashrc_once 'export PATH="$HOME/.rbenv/bin:$PATH"'
+append_bashrc_once 'eval "$(rbenv init - bash)"'
 
 export PATH="${HOME}/.rbenv/bin:${PATH}"
 eval "$(rbenv init - bash)"
@@ -254,6 +283,10 @@ Nginx main configuration:
 Ruby / Rails:
   $(ruby -v)
   $(rails -v)
+
+Node.js tools:
+  $(node --version)
+  nvm $(nvm --version)
 
 Puma staging:
   ${STAGING_DIR}/setup.conf

@@ -78,7 +78,7 @@ chmod +x install.sh configure_nginx.sh install_puma_service.sh
 ./install.sh
 ```
 
-腳本會安裝系統套件、Nginx、Ruby、Rails、Node.js，以及選配的 MySQL/PHP，並在 `~/server-setup` 建立後續維護檔案。
+腳本會安裝系統套件、Nginx、Ruby、Rails、nvm、Node.js，以及選配的 MySQL/PHP，並在 `~/server-setup` 建立後續維護檔案。
 
 ### 3. 部署 Rails 專案
 
