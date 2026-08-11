@@ -18,7 +18,7 @@ HTTP/HTTPS -> Nginx -> 127.0.0.1:PUMA_PORT -> Puma -> Rails
 ```text
 rails_setup/
 |-- install.sh                       # 基礎環境安裝
-|-- install_dev_user_tools.sh        # 額外開發帳號安裝 rbenv + nvm
+|-- install_dev_user_tools.sh        # 相容入口，轉交 host_setup 執行
 |-- install_mssql_support.sh         # 選配 TinyTDS/FreeTDS system support
 |-- configure_nginx.sh               # 產生、驗證及套用 application conf
 |-- install_puma_service.sh          # Rails 就緒後安裝 Puma service
@@ -145,11 +145,11 @@ Rails vhost 包含 WebSocket headers、proxy timeouts、`X-Content-Type-Options`
 
 ## 額外開發帳號
 
-若同一台非正式環境 server 已執行過 `install.sh`，要讓另一個 Linux user 自行管理 Ruby 與 Node.js，請切換到該 user 後執行：
+若同一台非正式環境 server 已執行過 `install.sh`，要讓另一個 Linux user 自行管理 Ruby 與 Node.js，請切換到該 user，從完整 repository 執行標準入口：
 
 ```bash
-chmod +x install_dev_user_tools.sh
-./install_dev_user_tools.sh
+chmod +x host_setup/install_rbenv_nvm.sh
+host_setup/install_rbenv_nvm.sh
 ```
 
 這支腳本只在目前 user 的 home directory 安裝或更新：
@@ -160,6 +160,8 @@ chmod +x install_dev_user_tools.sh
 - 對應的 `~/.bashrc` 初始化設定
 
 它不使用 sudo、不安裝 apt packages，也不安裝任何 Ruby、Rails、Node.js 或 Yarn 版本。使用者重新登入後，依專案需求自行執行 `rbenv install` 與 `nvm install`。
+
+`rails_setup/install_dev_user_tools.sh` 是舊指令的相容 wrapper；唯一實作位於 `host_setup/install_rbenv_nvm.sh`。
 
 `rails_setup` 選用 rbenv + nvm 作為開發帳號標準，以便和正式環境的 Ruby 管理方式一致。mise 與 asdf 能提供類似功能，但不在此目錄同時維護；其舊腳本保留於 `amaspms/` 供評估與歷史環境使用。
 

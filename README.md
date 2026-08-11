@@ -105,8 +105,7 @@ chmod +x install.sh configure_nginx.sh install_puma_service.sh
 server 已完成基礎安裝後，切換到新的開發 user，執行：
 
 ```bash
-cd rails_setup
-./install_dev_user_tools.sh
+./host_setup/install_rbenv_nvm.sh
 ```
 
 腳本只為目前 user 安裝 rbenv、ruby-build 與 nvm；Ruby、Rails 和 Node.js 版本由該 user 後續自行安裝。

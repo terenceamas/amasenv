@@ -56,7 +56,7 @@
 | 檔案 | 用途 | 建議狀態 |
 |---|---|---|
 | `install.sh` | AMASPMS 新機基礎安裝入口 | current candidate |
-| `install_dev_user_tools.sh` | 非正式環境額外 user 的 rbenv、ruby-build、nvm bootstrap | current candidate |
+| `install_dev_user_tools.sh` | 轉交 `host_setup/install_rbenv_nvm.sh` 的相容入口 | compatibility wrapper |
 | `install_mssql_support.sh` | TinyTDS 專案的 FreeTDS system dependencies 與驗證 | current candidate |
 | `configure_nginx.sh` | Rails vhost 產生、驗證與套用 | current candidate |
 | `install_puma_service.sh` | 專案就緒後安裝 Puma service | current candidate |
@@ -68,6 +68,7 @@
 |---|---|---|
 | `install_python.sh` | 通用 Python 3、pip、venv 與 native build environment | current candidate |
 | `install_docker.sh` | Docker 官方 repository、Engine、Buildx、Compose plugin | current candidate |
+| `install_rbenv_nvm.sh` | 每個 user 的 rbenv、ruby-build、nvm bootstrap | current candidate |
 
 ## 待確認事項
 

@@ -15,6 +15,7 @@
 | `amaspms/asdf/` | 未明確 | asdf | legacy/unverified | 待補 |
 | `host_setup/install_python.sh` | 22.04／24.04 | Ubuntu Python 3、pip、venv | current candidate | 待補 |
 | `host_setup/install_docker.sh` | 22.04／24.04 | Docker CE、Buildx、Compose | current candidate | 待補 |
+| `host_setup/install_rbenv_nvm.sh` | 已安裝 dependencies 的 Ubuntu host | rbenv、ruby-build、nvm | current candidate | 待補 |
 
 `current candidate` 代表設計上預計成為 current，但尚需在公司標準 VM 與至少一套實際專案部署完成驗證。
 

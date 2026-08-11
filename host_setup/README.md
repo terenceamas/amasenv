@@ -61,10 +61,29 @@ ADD_USER_TO_DOCKER_GROUP=yes ./install_docker.sh
 
 Docker 發布 container port 時可能繞過 UFW／firewalld 的一般規則。對外開放任何 port 前，必須另外檢查主機 firewall、雲端 security group 與 Docker `DOCKER-USER` chain。
 
+## rbenv 與 nvm
+
+```bash
+chmod +x install_rbenv_nvm.sh
+./install_rbenv_nvm.sh
+```
+
+此腳本只為目前 user 安裝或更新：
+
+- `~/.rbenv`
+- `~/.rbenv/plugins/ruby-build`
+- `~/.nvm`
+- 對應的 `~/.bashrc` 初始化設定
+
+它不使用 sudo、不安裝 apt packages，也不安裝 Ruby、Rails、Node.js 或 Yarn 版本。系統編譯 dependencies 應先由主機管理者準備，使用者重新登入後再依 project 需求自行執行 `rbenv install` 與 `nvm install`。
+
+`rails_setup/install_dev_user_tools.sh` 保留為相容入口，實際會轉交本腳本執行；唯一維護來源是 `host_setup/install_rbenv_nvm.sh`。
+
 ## 不包含的工作
 
 - Python project dependencies 或 virtual environment 管理。
 - pyenv 或多 Python 版本管理。
+- Ruby、Rails、Node.js 或 Yarn 版本安裝。
 - Docker image build、Compose deployment 或 registry login。
 - Container volume、database、backup 或 production deployment。
 - Firewall、proxy、daemon JSON 或 log rotation 的客戶專屬設定。
