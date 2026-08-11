@@ -109,6 +109,17 @@ cd rails_setup
 
 腳本只為目前 user 安裝 rbenv、ruby-build 與 nvm；Ruby、Rails 和 Node.js 版本由該 user 後續自行安裝。
 
+### 客戶選配 MSSQL
+
+Rails project 使用 TinyTDS 連接 Microsoft SQL Server 時，另外執行：
+
+```bash
+cd rails_setup
+./install_mssql_support.sh [APP_CURRENT]
+```
+
+這不是標準 MySQL 安裝流程的一部分；詳細行為與驗證方式請見 [rails_setup/README.md](rails_setup/README.md)。
+
 ## 維護原則
 
 - 執行前先確認腳本支援的 Ubuntu 與套件版本。

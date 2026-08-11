@@ -19,6 +19,7 @@ HTTP/HTTPS -> Nginx -> 127.0.0.1:PUMA_PORT -> Puma -> Rails
 rails_setup/
 |-- install.sh                       # 基礎環境安裝
 |-- install_dev_user_tools.sh        # 額外開發帳號安裝 rbenv + nvm
+|-- install_mssql_support.sh         # 選配 TinyTDS/FreeTDS system support
 |-- configure_nginx.sh               # 產生、驗證及套用 application conf
 |-- install_puma_service.sh          # Rails 就緒後安裝 Puma service
 |-- setup.conf                       # 安裝參數
@@ -161,6 +162,33 @@ chmod +x install_dev_user_tools.sh
 它不使用 sudo、不安裝 apt packages，也不安裝任何 Ruby、Rails、Node.js 或 Yarn 版本。使用者重新登入後，依專案需求自行執行 `rbenv install` 與 `nvm install`。
 
 `rails_setup` 選用 rbenv + nvm 作為開發帳號標準，以便和正式環境的 Ruby 管理方式一致。mise 與 asdf 能提供類似功能，但不在此目錄同時維護；其舊腳本保留於 `amaspms/` 供評估與歷史環境使用。
+
+## 選配 MSSQL 支援
+
+標準環境使用 MySQL。只有 Rails project 使用 `tiny_tds` 與 `activerecord-sqlserver-adapter` 時，才需要額外執行：
+
+```bash
+chmod +x install_mssql_support.sh
+./install_mssql_support.sh
+```
+
+若 Rails project 已部署，可傳入 project 路徑並一併檢查 TinyTDS native extension：
+
+```bash
+./install_mssql_support.sh /home/amastek/myapp/current
+```
+
+腳本安裝 Ubuntu 的 `freetds-bin`、`freetds-dev` 與 `libsybdb5`，並驗證 `tsql` 和 dynamic linker 中的 `libsybdb`。若 project bundle 已完整，還會執行 `require "tiny_tds"` 測試。
+
+此腳本專門支援 TinyTDS 的 FreeTDS DB-Library 路線，不安裝 `unixodbc-dev`、`tdsodbc`、Microsoft ODBC Driver、`sqlcmd` 或 `bcp`，也不修改 `database.yml` 或保存 MSSQL credentials。
+
+連線診斷範例：
+
+```bash
+TDSVER=auto tsql -H <mssql-host> -p 1433 -U <username>
+```
+
+密碼由 `tsql` 互動式詢問，不要把密碼放入 command line 或 shell history。
 
 ## phpMyAdmin
 

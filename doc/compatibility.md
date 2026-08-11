@@ -32,6 +32,7 @@
 10. MySQL/PHP 選配開關。
 11. PHP-FPM socket 偵測。
 12. phpMyAdmin 人工安裝、存取限制與 Blowfish secret。
+13. TinyTDS/FreeTDS 選配安裝、`tsql` 與 `libsybdb` 驗證。
 
 ## 驗證紀錄格式
 
