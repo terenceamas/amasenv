@@ -9,6 +9,7 @@ https://bit.ly/amasenv
 - `amascore/`：AMASCORE（SCADA、C++）環境腳本。
 - `amaspms/`：AMASPMS（Ruby on Rails）歷史腳本，依 Ruby 版本管理工具分類。
 - `rails_setup/`：目前整理中的 AMASPMS 標準新機安裝流程。
+- `host_setup/`：與產品及 project 無關的 Python、Docker 主機工具。
 - `doc/`：目錄規範、支援矩陣與現有腳本盤點。
 
 ## 專案架構
@@ -22,6 +23,7 @@ amasenv/
 |   |-- asdf/                 # asdf 版本的 AMASPMS 腳本
 |   `-- common/               # Nginx、Apache、Passenger 共用維護工具
 |-- rails_setup/              # 新版 Nginx + Puma + rbenv 安裝流程
+|-- host_setup/               # 通用 Python、Docker 主機安裝
 `-- doc/
 ```
 
@@ -134,3 +136,4 @@ cd rails_setup
 - [支援與驗證矩陣](doc/compatibility.md)
 - [腳本盤點](doc/script-inventory.md)
 - [Rails server 詳細操作](rails_setup/README.md)
+- [通用主機工具](host_setup/README.md)

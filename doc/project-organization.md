@@ -8,6 +8,7 @@
 amascore/       AMASCORE（SCADA、C++）
 amaspms/        AMASPMS 歷史與元件腳本
 rails_setup/    AMASPMS 目前整理中的標準新機流程
+host_setup/     不綁定產品或 project 的主機 runtime／工具
 doc/            專案文件
 ```
 
@@ -22,6 +23,8 @@ amaspms/
 ```
 
 `common/` 只放不隸屬單一 Ruby manager 的 Web server、Passenger 或元件維護腳本。
+
+跨 AMASCORE／AMASPMS 且不處理 project deployment 的主機工具放在 `host_setup/`。目前包括 Python base environment 與 Docker Engine；project packages、images 和 deployment 不屬於此目錄的責任。
 
 ## 腳本狀態
 

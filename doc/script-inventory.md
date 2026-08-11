@@ -62,6 +62,13 @@
 | `install_puma_service.sh` | 專案就緒後安裝 Puma service | current candidate |
 | `setup_config/*` | Nginx/Puma templates 與參考設定 | current candidate |
 
+## Host setup
+
+| 腳本 | 用途 | 建議狀態 |
+|---|---|---|
+| `install_python.sh` | 通用 Python 3、pip、venv 與 native build environment | current candidate |
+| `install_docker.sh` | Docker 官方 repository、Engine、Buildx、Compose plugin | current candidate |
+
 ## 待確認事項
 
 1. `amascore_env_ror*` 與 `amascore_rbenv*` 的實際產品歸屬。
