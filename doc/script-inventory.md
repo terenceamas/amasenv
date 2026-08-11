@@ -56,6 +56,7 @@
 | 檔案 | 用途 | 建議狀態 |
 |---|---|---|
 | `install.sh` | AMASPMS 新機基礎安裝入口 | current candidate |
+| `install_dev_user_tools.sh` | 非正式環境額外 user 的 rbenv、ruby-build、nvm bootstrap | current candidate |
 | `configure_nginx.sh` | Rails vhost 產生、驗證與套用 | current candidate |
 | `install_puma_service.sh` | 專案就緒後安裝 Puma service | current candidate |
 | `setup_config/*` | Nginx/Puma templates 與參考設定 | current candidate |

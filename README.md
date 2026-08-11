@@ -98,6 +98,17 @@ chmod +x install.sh configure_nginx.sh install_puma_service.sh
 
 該工具只管理 `/etc/nginx/conf.d/<APP_NAME>.conf`，不會取代 `/etc/nginx/nginx.conf`。
 
+### 非正式環境增加開發帳號
+
+server 已完成基礎安裝後，切換到新的開發 user，執行：
+
+```bash
+cd rails_setup
+./install_dev_user_tools.sh
+```
+
+腳本只為目前 user 安裝 rbenv、ruby-build 與 nvm；Ruby、Rails 和 Node.js 版本由該 user 後續自行安裝。
+
 ## 維護原則
 
 - 執行前先確認腳本支援的 Ubuntu 與套件版本。

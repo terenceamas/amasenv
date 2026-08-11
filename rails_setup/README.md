@@ -18,6 +18,7 @@ HTTP/HTTPS -> Nginx -> 127.0.0.1:PUMA_PORT -> Puma -> Rails
 ```text
 rails_setup/
 |-- install.sh                       # 基礎環境安裝
+|-- install_dev_user_tools.sh        # 額外開發帳號安裝 rbenv + nvm
 |-- configure_nginx.sh               # 產生、驗證及套用 application conf
 |-- install_puma_service.sh          # Rails 就緒後安裝 Puma service
 |-- setup.conf                       # 安裝參數
@@ -140,6 +141,26 @@ Credentials、environment variables、database 建立及 migration 不由本套�
 Rails vhost 包含 WebSocket headers、proxy timeouts、`X-Content-Type-Options`、`Referrer-Policy`、`Permissions-Policy` 與 CSP。
 
 目前 CSP 以相容既有 Rails 專案為優先，仍允許 inline script/style 與 `unsafe-eval`。正式上線前應依專案實際使用的 CDN、API、WebSocket、iframe 與前端套件逐步收緊。
+
+## 額外開發帳號
+
+若同一台非正式環境 server 已執行過 `install.sh`，要讓另一個 Linux user 自行管理 Ruby 與 Node.js，請切換到該 user 後執行：
+
+```bash
+chmod +x install_dev_user_tools.sh
+./install_dev_user_tools.sh
+```
+
+這支腳本只在目前 user 的 home directory 安裝或更新：
+
+- `~/.rbenv`
+- `~/.rbenv/plugins/ruby-build`
+- `~/.nvm`
+- 對應的 `~/.bashrc` 初始化設定
+
+它不使用 sudo、不安裝 apt packages，也不安裝任何 Ruby、Rails、Node.js 或 Yarn 版本。使用者重新登入後，依專案需求自行執行 `rbenv install` 與 `nvm install`。
+
+`rails_setup` 選用 rbenv + nvm 作為開發帳號標準，以便和正式環境的 Ruby 管理方式一致。mise 與 asdf 能提供類似功能，但不在此目錄同時維護；其舊腳本保留於 `amaspms/` 供評估與歷史環境使用。
 
 ## phpMyAdmin
 
