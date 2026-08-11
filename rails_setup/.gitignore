@@ -1,0 +1,12 @@
+# Local/customer overrides
+setup.local.conf
+
+# Secrets / certificates
+*.key
+*.pfx
+*.p12
+
+# Temporary files
+*.tmp
+*.bak
+*~

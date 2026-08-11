@@ -1,0 +1,21 @@
+[Unit]
+Description=__APP_NAME__ Puma Rails Application
+After=network.target
+
+[Service]
+Type=simple
+
+WorkingDirectory=__APP_CURRENT__
+
+Environment=RAILS_ENV=production
+Environment=RACK_ENV=production
+Environment=PATH=__HOME__/.rbenv/shims:__HOME__/.rbenv/bin:/usr/local/bin:/usr/bin:/bin
+
+ExecStart=__HOME__/.rbenv/shims/bundle exec puma -C config/puma.rb
+
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target
