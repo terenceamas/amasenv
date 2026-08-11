@@ -1,0 +1,52 @@
+# phpMyAdmin Nginx configuration example.
+#
+# Before enabling this file, update:
+#   1. server_name
+#   2. root (the directory where phpMyAdmin was extracted)
+#   3. fastcgi_pass (detected during install when possible)
+#   4. ssl_certificate and ssl_certificate_key
+#   5. the access restrictions for the customer environment
+
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name phpmyadmin.example.com;
+
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name phpmyadmin.example.com;
+
+    ssl_certificate /etc/nginx/ssl/phpmyadmin.crt;
+    ssl_certificate_key /etc/nginx/ssl/phpmyadmin.key;
+
+    root /var/www/phpmyadmin;
+    index index.php;
+
+    # Access is denied by default. Add the trusted customer networks above
+    # "deny all" before enabling this virtual host.
+    # allow 192.168.0.0/16;
+    # allow 10.0.0.0/8;
+    deny all;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_pass unix:__PHP_FPM_SOCKET__;
+    }
+
+    location ~ /\. {
+        deny all;
+    }
+}

@@ -4,18 +4,6 @@ server {
 
     server_name __SERVER_NAME__;
 
-    return 301 https://$host$request_uri;
-}
-
-server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
-
-    server_name __SERVER_NAME__;
-
-    ssl_certificate __SSL_CERTIFICATE__;
-    ssl_certificate_key __SSL_CERTIFICATE_KEY__;
-
     root __APP_CURRENT__/public;
 
     client_max_body_size 100m;
@@ -23,7 +11,7 @@ server {
     add_header X-Content-Type-Options "nosniff" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
     add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
-    add_header Content-Security-Policy "default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: blob: https:; font-src 'self' data: https:; connect-src 'self' https: wss:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'" always;
+    add_header Content-Security-Policy "default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: blob: https:; font-src 'self' data: https:; connect-src 'self' http: https: ws: wss:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'" always;
 
     location ~ ^/(assets|packs) {
         expires max;
